@@ -14,7 +14,7 @@ const Canvas = ({width, height, cellsArray, onCellClick}) => {
                 if (cellsArray[i][j] == 0) {
                     context.fillStyle = '#000000';
                 } else if (cellsArray[i][j] == 2) {
-                    context.fillStyle = '#0000FF';
+                    context.fillStyle = '#FFA500';
                 } else {
                     context.fillStyle = '#FF0000';
                 }

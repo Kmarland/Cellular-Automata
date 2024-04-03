@@ -18,6 +18,7 @@ const App = () => {
     const [cells, setCells] = useState(cellsArray); // Your cellular automata grid
     const [generation, setGeneration] = useState(0);
     const [isPaused, setIsPaused] = useState(true);
+    const [version, setVersion] = useState(0);
 
     const updateCells = () => {
         const newCells = cells.map(row => [...row]);
@@ -30,13 +31,33 @@ const App = () => {
                         numLive++;
                     }
                 }
-                if (cells[i][j] == 1) {
-                    if (numLive < 2 || numLive > 3) {
-                        newCells[i][j] = 0;
+                if (version == 0) {
+                    if (cells[i][j] == 1) {
+                        if (numLive < 2 || numLive > 3) {
+                            newCells[i][j] = 0;
+                        }
+                    } else {
+                        if (numLive == 3) {
+                            newCells[i][j] = 1;
+                        }
+                    }
+                } else if (version == 1){
+                    if (cells[i][j] == 1) {
+                        newCells[i][j] = 2
+                    } else if (cells[i][j] == 2){
+                        newCells[i][j] = 0
+                    } else {
+                        if (numLive == 2) {
+                            newCells[i][j] = 1;
+                        }
                     }
                 } else {
-                    if (numLive == 3) {
-                        newCells[i][j] = 1;
+                    if (cells[i][j] == 1) {
+                        newCells[i][j] = 0
+                    } else {
+                        if (numLive == 2) {
+                            newCells[i][j] = 1;
+                        }
                     }
                 }
             }
@@ -72,7 +93,7 @@ const App = () => {
                 const temp = updateCells();
                 setCells(temp);
                 setGeneration(generation + 1);
-            }, 20);
+            }, 50);
         }
 
         return () => clearInterval(intervalID)
@@ -109,6 +130,9 @@ const App = () => {
             <Canvas width={width} height={height} cellsArray={cells} id="canvas" onCellClick={handleCellClick}/>
             <p>Generation: {generation}</p>
             <button onClick={handlePause}>Pause</button>
+            <button onClick={() => {
+                setVersion(version + 1 == 3 ? 0 : version + 1);
+            }}>Next</button>
         </div>
         );
 };

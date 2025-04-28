@@ -4,7 +4,7 @@ import './App.css';
 
 const App = () => {
     const cellSize = 10;
-    const width = 500;
+    const width = 1500;
     const height = 500;
     const cellsWidth = width / cellSize;
     const cellsHeight= height / cellSize;
@@ -93,7 +93,7 @@ const App = () => {
                 const temp = updateCells();
                 setCells(temp);
                 setGeneration(generation + 1);
-            }, 50);
+            }, 10);
         }
 
         return () => clearInterval(intervalID)
